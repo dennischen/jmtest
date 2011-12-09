@@ -1,0 +1,46 @@
+<zk>
+<style>
+.z-listcell.red .z-listcell-cnt, .z-label.red{
+	color:red;
+}
+</style>
+<window title="Search Storage Item" border="normal" width="600px"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('foo.jmtest.search.SearchVM')" >
+	<vbox hflex="true">
+		<hbox>
+			Filter : 
+			<textbox value="@bind(vm.filter)" instant="true"/> 
+			<button label="Search" onClick="@command('doSearch')" disabled="@load(empty vm.filter)"/>
+		</hbox>
+		<listbox model="@load(vm.items)" selectedItem="@bind(vm.selected)" hflex="true" height="300px">
+			<listhead>
+				<listheader label="Name"/>
+				<listheader label="Price" align="center" width="80px" />
+				<listheader label="Quantity" align="center" width="80px" />
+			</listhead>
+			<template name="model" var="item">
+				<listitem >
+					<listcell label="@load(item.name)"/>				
+					<listcell label="@load(item.price) @converter('formatedNumber', format='###,##0.00')"/>
+					<listcell label="@load(item.quantity)" sclass="@load(item.quantity lt 3 ?'red':'')"/>	
+				</listitem>
+			</template>
+		</listbox>
+		<groupbox visible="@load(not empty vm.selected)" hflex="true" mold="3d">
+			<caption label="@load(vm.selected.name)"/>
+			<grid hflex="true" >
+				<columns>
+					<column width="120px"/>
+					<column/>
+				</columns>
+				<rows>
+					<row>Description <label value="@load(vm.selected.description)"/></row>
+					<row>Price <label value="@load(vm.selected.price) @converter('formatedNumber', format='###,##0.00')"/></row>
+					<row>Quantity <label value="@load(vm.selected.quantity)"  sclass="@load(vm.selected.quantity lt 3 ?'red':'')"/></row>
+					<row>Total Price <label value="@load(vm.selected.totalPrice) @converter(vm.totalPriceConverter)"/></row>
+				</rows>
+			</grid>
+		</groupbox>
+	</vbox>
+</window>
+</zk>

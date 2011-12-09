@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Specification-Title: jmtest
+Specification-Version: 0.0.1-SNAPSHOT
+Implementation-Title: foo.jmtest
+Implementation-Version: 0.0.1-SNAPSHOT
